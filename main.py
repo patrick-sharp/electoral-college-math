@@ -22,7 +22,7 @@ def calculate_electors(populations: list[int], num_electors=100, base_state_elec
     n = len(populations)
     if num_electors < n * base_state_electors:
         print(f"num_electors must be at least {n * base_state_electors}")
-        return
+        return [-1] * n
 
     electors = [base_state_electors] * n
     for _ in range(num_electors - base_state_electors * n):
@@ -42,8 +42,8 @@ def calculate_electors(populations: list[int], num_electors=100, base_state_elec
 def column_align(populations: list[int], electors: list[int]):
     n = len(populations)
     assert(n == len(electors))
-    aligned_populations = [None] * n
-    aligned_electors = [None] * n
+    aligned_populations = [""] * n
+    aligned_electors = [""] * n
     for i, (p, e) in enumerate(zip(populations, electors)):
         width = max(len(str(p)), len(str(e)))
         aligned_populations[i] = f"{p:{width}}"
