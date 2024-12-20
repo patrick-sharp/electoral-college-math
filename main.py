@@ -4,6 +4,10 @@
 # * The total number of electors (in america, it's 538)
 # * The base number of electors each state starts with (in america, it's 3)
 #
+# The algorithm is called the "method of equal proportions"
+# https://www.census.gov/newsroom/blogs/random-samplings/2021/04/how-apportionment-is-calculated.html
+# https://en.wikipedia.org/wiki/Huntington%E2%80%93Hill_method
+#
 # How the algorithm works:
 # * All states are given the base number of electors
 # * For each remaining elector:
@@ -20,9 +24,7 @@ def priority(population, current_electors):
 
 def calculate_electors(populations: list[int], num_electors=100, base_state_electors=3):
     n = len(populations)
-    if num_electors < n * base_state_electors:
-        print(f"num_electors must be at least {n * base_state_electors}")
-        return [-1] * n
+    assert(num_electors >=n * base_state_electors)
 
     electors = [base_state_electors] * n
     for _ in range(num_electors - base_state_electors * n):
